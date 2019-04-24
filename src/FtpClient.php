@@ -157,11 +157,4 @@ class FtpClient {
         ftp_close($this->link);
     }
 
-    /**
-     * 析构方法，用于断开当前FTP连接
-     */
-    public function __destruct() {
-        ftp_close($this->link);
-    }
-
 }
