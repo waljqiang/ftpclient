@@ -1,0 +1,19 @@
+{
+    "name": "waljqiang/ftpclient",
+    "description": "php ftp client",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "waljqiang",
+            "email": "waljqiang@163.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4":{
+            "Nova\\FtpClient\\": "src/"
+        }
+    }
+}
