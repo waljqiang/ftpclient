@@ -38,7 +38,7 @@ class FtpClient {
     }
 
     public function isDir($directory){
-        $pwd = ftp_pwd($this->link);
+        $pwd = @ftp_pwd($this->link);
         $directory = $pwd . '/' . $directory . '/';
         if(!@ftp_chdir($this->link,$directory)){
             return false;
@@ -50,14 +50,14 @@ class FtpClient {
     public function mkdir($directory){
         $rs = true;
         if(!$this->isDir($directory)){
-            $pwd = ftp_pwd($this->link);
+            $pwd = @ftp_pwd($this->link);
             $parts = explode('/',$directory);
             foreach ($parts as $part) {
                 if(empty($part)){
                     continue;
                 }
                 if(!@ftp_chdir($this->link,$part)){
-                    ftp_mkdir($this->link,$part);
+                    @ftp_mkdir($this->link,$part);
                     $rs = @ftp_chdir($this->link,$part);
                 }
             }
@@ -78,7 +78,7 @@ class FtpClient {
         }
 
         /* 移动文件 */
-        if (!ftp_put($this->link, $ftpFile, $localFile, $mode,$startpos)) {
+        if (!@ftp_put($this->link, $ftpFile, $localFile, $mode,$startpos)) {
             throw new FtpException("put failure");
         }
         return true;
@@ -120,8 +120,8 @@ class FtpClient {
         if(!$this->isDir($ftpDirectory)){
             throw new FtpException("Ftp directory " . $ftpDirectory . " is not exists");
         }
-        chdir($localDirectory);
-        $contents = ftp_nlist($this->link,$ftpDirectory);
+        @chdir($localDirectory);
+        $contents = @ftp_nlist($this->link,$ftpDirectory);
 
         foreach ($contents as $file) {
             if($file != "." && $file != ".."){
