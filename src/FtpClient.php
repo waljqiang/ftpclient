@@ -153,6 +153,16 @@ class FtpClient {
         }
     }
 
+    public function __call($method,$args){
+        $fun = substr($method,0,4) == 'ftp_' ? $method : 'ftp_' . $method;
+        if(function_exists($fun)){
+            array_unshift($args,$this->link);
+            return call_user_func_array($fun,$args);
+        }else{
+            throw new FtpException("Not exists function：${$fun}");
+        }
+    }
+
     public function close(){
         ftp_close($this->link);
     }
