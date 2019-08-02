@@ -140,7 +140,7 @@ class FtpClient {
      * @return boolean true-登录成功，false-登录失败
      */
     public function connect($host, $port = 21,$username = 'anonymous',$password='', $timeout = 90){
-        $this->link = ftp_connect($host, $port, $timeout);
+        $this->link = @ftp_connect($host, $port, $timeout);
         if($this->link) {
             if (ftp_login($this->link, $username, $password)) {
                 ftp_pasv($this->link ,true);
