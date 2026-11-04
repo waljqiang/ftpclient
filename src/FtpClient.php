@@ -159,7 +159,7 @@ class FtpClient {
             array_unshift($args,$this->link);
             return call_user_func_array($fun,$args);
         }else{
-            throw new FtpException("Not exists function：${$fun}");
+            throw new FtpException("Not exists function：$fun");
         }
     }
 
