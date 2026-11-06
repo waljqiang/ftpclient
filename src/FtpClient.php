@@ -104,8 +104,8 @@ class FtpClient {
     }
 
     public function get($localFile,$ftpFile,$mode = FTP_BINARY,$resumepos = 0){
-        if(!is_dir(dirname($localFile)) && !mkdir(dirname($localFile,'766',true))){
-            throw new FtpException("Local directory " . dirname($localFile) ." is not exsits");
+        if(!is_dir($localFile) && !mkdir($localFile,'766',true)){
+            throw new FtpException("Local directory " . $localFile ." is not exsits");
         }
         if(!(ftp_size($this->link,$ftpFile) > -1)){
             throw new FtpException("Ftp file is not exsits");
